@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://addons/retro_vector/demos/asteroid.gd" id="1_o5lg2"]
+[ext_resource type="PackedScene" uid="uid://cnwpffl33g4k5" path="res://addons/retro_vector/demos/assets/asteroid.glb" id="2_sii7n"]
+[ext_resource type="Material" path="res://addons/retro_vector/demos/mat_green_vector.tres" id="3_u71yu"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_uoceg"]
+radius = 6.0
+
+[node name="asteroid" type="RigidBody3D"]
+gravity_scale = 0.0
+script = ExtResource("1_o5lg2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_uoceg")
+
+[node name="asteroid" parent="CollisionShape3D" instance=ExtResource("2_sii7n")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+
+[node name="rock002" parent="CollisionShape3D/asteroid" index="0"]
+material_override = ExtResource("3_u71yu")
+
+[editable path="CollisionShape3D/asteroid"]

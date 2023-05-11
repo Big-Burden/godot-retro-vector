@@ -1,0 +1,116 @@
+[gd_scene load_steps=15 format=3 uid="uid://etn251jewwja"]
+
+[ext_resource type="Environment" uid="uid://caabvtajbwcha" path="res://addons/retro_vector/vector_environment.tres" id="1_vxax2"]
+[ext_resource type="PackedScene" uid="uid://dd8bad0wef5oq" path="res://addons/retro_vector/demos/assets/logo.glb" id="2_k11y7"]
+[ext_resource type="Shader" path="res://addons/retro_vector/vector.gdshader" id="3_7o1f2"]
+[ext_resource type="PackedScene" uid="uid://dscf3f6eydm4x" path="res://addons/retro_vector/demos/assets/arm_thing.glb" id="4_yy4f0"]
+[ext_resource type="PackedScene" uid="uid://gwhaxyvcsobg" path="res://addons/retro_vector/demos/assets/lunar_module.glb" id="5_t3uow"]
+[ext_resource type="PackedScene" uid="uid://b40mviyo8ecvu" path="res://addons/retro_vector/demos/assets/service_module.glb" id="6_00hc7"]
+[ext_resource type="PackedScene" uid="uid://cnwpffl33g4k5" path="res://addons/retro_vector/demos/assets/asteroid.glb" id="7_255ot"]
+[ext_resource type="Material" path="res://addons/retro_vector/demos/mat_green_vector.tres" id="8_itsah"]
+[ext_resource type="PackedScene" uid="uid://c2r1jntyr8u5i" path="res://addons/retro_vector/demos/assets/fighter.glb" id="9_x7moj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wttkc"]
+render_priority = 0
+shader = ExtResource("3_7o1f2")
+shader_parameter/min_fade_distance = 100.0
+shader_parameter/wobble_scale = 1.0
+shader_parameter/wobble_speed = 10000.0
+shader_parameter/use_vertex_colour = true
+shader_parameter/colour = Color(0, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wlynv"]
+render_priority = 0
+shader = ExtResource("3_7o1f2")
+shader_parameter/min_fade_distance = 100.0
+shader_parameter/wobble_scale = 1.0
+shader_parameter/wobble_speed = 10000.0
+shader_parameter/use_vertex_colour = true
+shader_parameter/colour = Color(0, 1, 0, 1)
+
+[sub_resource type="GDScript" id="GDScript_7owa6"]
+script/source = "
+@tool
+extends AnimationPlayer
+
+func _ready() -> void:
+	play(\"wiggle\")
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1mpg2"]
+render_priority = 0
+shader = ExtResource("3_7o1f2")
+shader_parameter/min_fade_distance = 100.0
+shader_parameter/wobble_scale = 1.0
+shader_parameter/wobble_speed = 10000.0
+shader_parameter/use_vertex_colour = true
+shader_parameter/colour = Color(0, 1, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f1v4l"]
+render_priority = 0
+shader = ExtResource("3_7o1f2")
+shader_parameter/min_fade_distance = 100.0
+shader_parameter/wobble_scale = 1.0
+shader_parameter/wobble_speed = 10000.0
+shader_parameter/use_vertex_colour = true
+shader_parameter/colour = Color(0, 1, 0, 1)
+
+[node name="root" type="Node"]
+
+[node name="VectorWorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_vxax2")
+
+[node name="logo" parent="." instance=ExtResource("2_k11y7")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+
+[node name="Logo" parent="logo" index="0"]
+material_override = SubResource("ShaderMaterial_wttkc")
+
+[node name="arm_thing" parent="." instance=ExtResource("4_yy4f0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.15113, -2.13847, 0)
+
+[node name="Skeleton3D" parent="arm_thing/Armature" index="0"]
+bones/1/rotation = Quaternion(0.664317, 0.10378, -0.112145, 0.731666)
+bones/2/rotation = Quaternion(0.831537, 0.129343, -0.0813452, 0.53404)
+
+[node name="Circle" parent="arm_thing/Armature/Skeleton3D" index="0"]
+material_override = SubResource("ShaderMaterial_wlynv")
+
+[node name="AnimationPlayer" parent="arm_thing" index="1"]
+reset_on_save = false
+script = SubResource("GDScript_7owa6")
+
+[node name="lunar_module" parent="." instance=ExtResource("5_t3uow")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3363, -4, 0)
+
+[node name="Lander" parent="lunar_module" index="0"]
+material_override = SubResource("ShaderMaterial_1mpg2")
+
+[node name="service_module" parent="." instance=ExtResource("6_00hc7")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 10.3363, 3, 0)
+
+[node name="ServiceModule" parent="service_module" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+material_override = SubResource("ShaderMaterial_f1v4l")
+
+[node name="asteroid" parent="." instance=ExtResource("7_255ot")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 1, -7, 0)
+
+[node name="rock002" parent="asteroid" index="0"]
+material_override = ExtResource("8_itsah")
+
+[node name="fighter" parent="." instance=ExtResource("9_x7moj")]
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 12, -11, 0)
+
+[node name="Cylinder" parent="fighter" index="0"]
+material_override = ExtResource("8_itsah")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, -3, 16)
+
+[editable path="logo"]
+[editable path="arm_thing"]
+[editable path="lunar_module"]
+[editable path="service_module"]
+[editable path="asteroid"]
+[editable path="fighter"]

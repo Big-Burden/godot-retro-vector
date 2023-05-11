@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://1oybe60xlqvy"]
+
+[ext_resource type="Script" path="res://addons/retro_vector/demos/space_ship.gd" id="1_61fke"]
+[ext_resource type="PackedScene" uid="uid://c2r1jntyr8u5i" path="res://addons/retro_vector/demos/assets/fighter.glb" id="2_y1fmm"]
+[ext_resource type="Material" path="res://addons/retro_vector/demos/mat_green_vector.tres" id="3_qw17u"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3w7ww"]
+radius = 2.0
+
+[node name="SpaceShip" type="RigidBody3D"]
+gravity_scale = 0.0
+can_sleep = false
+linear_damp = 1.0
+angular_damp = 2.0
+script = ExtResource("1_61fke")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_3w7ww")
+
+[node name="fighter" parent="." instance=ExtResource("2_y1fmm")]
+
+[node name="Cylinder" parent="fighter" index="0"]
+material_override = ExtResource("3_qw17u")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 8)
+
+[editable path="fighter"]
